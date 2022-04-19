@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rickandmortyapp/src/models/characters_model.dart';
+import 'package:rickandmortyapp/src/ui/screens/character_page.dart';
 
 class CardCharacter extends StatefulWidget {
   final CharactersModel model;
@@ -101,7 +102,13 @@ class _CardCharacterState extends State<CardCharacter> {
           ],
         ),
       ),
-      onTap: () {},
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CharacterPage(
+                    model: widget.model,
+                    index: widget.index,
+                  ))),
     );
   }
 }
