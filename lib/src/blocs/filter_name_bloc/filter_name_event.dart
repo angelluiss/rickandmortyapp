@@ -5,7 +5,7 @@ abstract class FilterNameEvent extends Equatable {
 }
 
 class GetFilterNameList extends FilterNameEvent {
-  late String name = "rick";
+  late String name = "";
 
   GetFilterNameList(this.name);
   @override

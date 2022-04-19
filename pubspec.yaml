@@ -64,6 +64,7 @@ flutter:
   assets:
    - assets/ram.jpeg
    - assets/ram2.jpeg
+   - assets/ram3.jpeg
    - assets/images/ramtitle.png
   
 

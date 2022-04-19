@@ -17,7 +17,7 @@ class FilterNameLoading extends FilterNameState {
 }
 
 class FilterNameLoaded extends FilterNameState {
-  final FilterNameModel filterNameModel;
+  final CharactersModel filterNameModel;
   const FilterNameLoaded(this.filterNameModel);
   @override
   List<Object> get props => [filterNameModel];

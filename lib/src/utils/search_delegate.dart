@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rickandmortyapp/src/blocs/filter_name_bloc/filter_name_bloc.dart';
-import 'package:rickandmortyapp/src/models/file_name_model.dart';
+import 'package:rickandmortyapp/src/models/characters_model.dart';
+
 import 'package:rickandmortyapp/src/ui/screens/character_page.dart';
 
 class MySearchDelegate extends SearchDelegate {
@@ -67,7 +68,7 @@ class MySearchDelegate extends SearchDelegate {
     );
   }
 
-  Widget _buildCard(BuildContext context, FilterNameModel model2) {
+  Widget _buildCard(BuildContext context, CharactersModel model2) {
     List<Results> suggestions2 = model2.results.where((searchResult) {
       final result = searchResult.name.toLowerCase();
       final input = query.toLowerCase();

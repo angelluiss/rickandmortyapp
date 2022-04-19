@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:rickandmortyapp/src/models/characters_model.dart';
 import 'package:rickandmortyapp/src/models/file_name_model.dart';
 import 'package:rickandmortyapp/src/respository/api_repository.dart';
 

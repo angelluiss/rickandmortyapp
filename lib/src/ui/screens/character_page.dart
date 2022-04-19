@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rickandmortyapp/src/models/characters_model.dart';
+import 'package:rickandmortyapp/src/ui/widgets/card_basic.dart';
+import 'package:rickandmortyapp/src/ui/widgets/card_episodes.dart';
 
 class CharacterPage extends StatefulWidget {
-  final dynamic model;
+  final CharactersModel model;
   final int index;
   CharacterPage({Key? key, required this.model, required this.index})
       : super(key: key);
@@ -12,14 +14,76 @@ class CharacterPage extends StatefulWidget {
 }
 
 class _CharacterPageState extends State<CharacterPage> {
-  final double coverHeight = 280;
+  final double coverHeight = 220;
   final double profileHeight = 144;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(padding: EdgeInsets.zero, children: [
-      _buildTop(),
-    ]));
+        body: ListView(padding: EdgeInsets.zero, children: [_buildTop()]));
+  }
+
+  _characterDetail() {
+    final size = MediaQuery.of(context).size;
+
+    final width = size.width;
+    final int episodesLengt = widget.model.results[widget.index].episode.length;
+    return Container(
+      width: width,
+      margin: EdgeInsets.only(top: profileHeight / 3),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Información",
+              style: TextStyle(color: Colors.black54, fontSize: 22),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CardBasic(
+                  model: widget.model,
+                  index: widget.index,
+                  name: "Gender",
+                  type: widget.model.results[widget.index].gender),
+              CardBasic(
+                  model: widget.model,
+                  index: widget.index,
+                  name: "Origin",
+                  type: widget.model.results[widget.index].origin.name),
+              CardBasic(
+                  model: widget.model,
+                  index: widget.index,
+                  name: "Type",
+                  type: widget.model.results[widget.index].type)
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Episodios",
+              style: TextStyle(color: Colors.black54, fontSize: 22),
+            ),
+          ),
+          // SizedBox(
+          //   height: 200,
+          //   child: GridView.count(
+          //     scrollDirection: Axis.horizontal,
+          //     // Create a grid with 2 columns. If you change the scrollDirection to
+          //     // horizontal, this produces 2 rows.
+          //     crossAxisCount: 2,
+          //     // Generate 100 widgets that display their index in the List.
+          //     children: List.generate(episodesLengt, (index) {
+          //       return CardEpisodes(index: , model: ,name: "", type: ,);
+          //     }),
+          //   ),
+          // ),
+        ],
+      ),
+    );
   }
 
   buildContent() {
@@ -106,11 +170,13 @@ class _CharacterPageState extends State<CharacterPage> {
               )),
           Positioned(top: coverHeight, child: buildContent()),
           Positioned(top: top, child: buildProfileImage()),
+          Positioned(
+              top: coverHeight + profileHeight, child: _characterDetail()),
         ]);
   }
 
   Widget buildCoverImage() => Image.asset(
-        "assets/images/ram.jpeg",
+        "assets/images/ram3.jpeg",
         width: double.infinity,
         height: coverHeight,
         fit: BoxFit.cover,

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:rickandmortyapp/src/models/characters_model.dart';
-import 'package:rickandmortyapp/src/models/file_name_model.dart';
+import 'package:rickandmortyapp/src/models/episodes_model.dart';
 import 'package:rickandmortyapp/src/utils/constanst.dart';
 
 class ApiProvider {
@@ -17,7 +17,7 @@ class ApiProvider {
     }
   }
 
-  Future<FilterNameModel> getName(String name) async {
+  Future<CharactersModel> getName(String name) async {
     print(
         "End point ${Constanst.url + Constanst.endpointCharacter + Constanst.endpointNameFilter + name}");
     try {
@@ -25,26 +25,21 @@ class ApiProvider {
           Constanst.endpointCharacter +
           Constanst.endpointNameFilter +
           name);
-      return FilterNameModel.fromJson(response.data);
+      return CharactersModel.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
-      return FilterNameModel.withError("Data not found / Connection issue");
+      return CharactersModel.withError("Data not found / Connection issue");
     }
   }
 
-  // Future<USDBalanceModel> getUSDMonitor() async {
-  //   String token = await BCVPreferences.getToken();
-  //   dynamic body = {'currencyType': 'USD', 'valueType': 'valuebuy'};
-  //   try {
-  //     _dio.options.headers["x-token"] = token;
-  //     Response response =
-  //         await _dio.post(_urlBCV + _balanceEndPoint, data: body);
-  //     print(response.data);
-  //     return USDBalanceModel.fromJson(response.data);
-  //   } catch (error, stacktrace) {
-  //     print("Exception occured: $error stackTrace: $stacktrace");
-  //     return USDBalanceModel.withError("Data not found / Connection issue");
-  //   }
-  // }
-
+  Future<EpisodesModel> getEpisodesDetail(String episode) async {
+    print("End point ${episode}");
+    try {
+      Response response = await _dio.get(episode);
+      return EpisodesModel.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+      return EpisodesModel.withError("Data not found / Connection issue");
+    }
+  }
 }
