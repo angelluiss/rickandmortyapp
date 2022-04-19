@@ -1,4 +1,6 @@
+import 'package:rickandmortyapp/src/blocs/filter_name_bloc/filter_name_bloc.dart';
 import 'package:rickandmortyapp/src/models/characters_model.dart';
+import 'package:rickandmortyapp/src/models/file_name_model.dart';
 import 'api_provider.dart';
 
 class ApiRepository {
@@ -8,10 +10,9 @@ class ApiRepository {
     return _provider.getCharacters();
   }
 
-  // Future<USDBalanceModel> getEURBCVMonitor() {
-  //   return _provider.getEURMonitor();
-  // }
-
+  Future<FilterNameModel> getName(String name) {
+    return _provider.getName(name);
+  }
 }
 
 class NetworkError extends Error {}

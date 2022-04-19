@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rickandmortyapp/src/models/characters_model.dart';
 
 class CharacterPage extends StatefulWidget {
-  final CharactersModel model;
+  final dynamic model;
   final int index;
   CharacterPage({Key? key, required this.model, required this.index})
       : super(key: key);
@@ -109,13 +109,11 @@ class _CharacterPageState extends State<CharacterPage> {
         ]);
   }
 
-  Widget buildCoverImage() => Container(
-        child: Image.asset(
-          "assets/images/ram.jpeg",
-          width: double.infinity,
-          height: coverHeight,
-          fit: BoxFit.cover,
-        ),
+  Widget buildCoverImage() => Image.asset(
+        "assets/images/ram.jpeg",
+        width: double.infinity,
+        height: coverHeight,
+        fit: BoxFit.cover,
       );
 
   Widget buildProfileImage() => CircleAvatar(

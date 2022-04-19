@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rickandmortyapp/src/blocs/character_list_bloc/character_bloc.dart';
-import 'package:rickandmortyapp/src/models/characters_model.dart';
+import 'package:rickandmortyapp/src/blocs/filter_name_bloc/filter_name_bloc.dart';
+import 'package:rickandmortyapp/src/models/file_name_model.dart';
+import 'package:rickandmortyapp/src/ui/screens/character_page.dart';
 
 class MySearchDelegate extends SearchDelegate {
-  final CharacterBloc _newsBloc = CharacterBloc(const CharacterInitial());
+  final FilterNameBloc _newsBloc = FilterNameBloc(const FilterNameInitial());
 
   @override
   List<Widget>? buildActions(BuildContext context) => [
@@ -31,15 +32,15 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    _newsBloc.add(GetCharacterList());
+    _newsBloc.add(GetFilterNameList(query.toLowerCase()));
 
     return Container(
       margin: const EdgeInsets.all(8.0),
       child: BlocProvider(
         create: (_) => _newsBloc,
-        child: BlocListener<CharacterBloc, CharacterState>(
+        child: BlocListener<FilterNameBloc, FilterNameState>(
           listener: (context, state) {
-            if (state is CharacterError) {
+            if (state is FilterNameError) {
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.message),
@@ -47,15 +48,15 @@ class MySearchDelegate extends SearchDelegate {
               );
             }
           },
-          child: BlocBuilder<CharacterBloc, CharacterState>(
+          child: BlocBuilder<FilterNameBloc, FilterNameState>(
             builder: (context, state) {
-              if (state is CharacterInitial) {
+              if (state is FilterNameInitial) {
                 return _buildLoading();
-              } else if (state is CharacterLoading) {
+              } else if (state is FilterNameLoading) {
                 return _buildLoading();
-              } else if (state is CharacterLoaded) {
-                return _buildCard(context, state.characterModel);
-              } else if (state is CharacterError) {
+              } else if (state is FilterNameLoaded) {
+                return _buildCard(context, state.filterNameModel);
+              } else if (state is FilterNameError) {
                 return Text(state.message);
               }
               return const CircularProgressIndicator();
@@ -66,8 +67,8 @@ class MySearchDelegate extends SearchDelegate {
     );
   }
 
-  Widget _buildCard(BuildContext context, CharactersModel model) {
-    List<Results> suggestions2 = model.results.where((searchResult) {
+  Widget _buildCard(BuildContext context, FilterNameModel model2) {
+    List<Results> suggestions2 = model2.results.where((searchResult) {
       final result = searchResult.name.toLowerCase();
       final input = query.toLowerCase();
       return result.contains(input);
@@ -83,7 +84,13 @@ class MySearchDelegate extends SearchDelegate {
             ),
             onTap: () {
               query = suggestions.name;
-              showResults(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CharacterPage(
+                            model: model2,
+                            index: index,
+                          )));
             });
       },
     );

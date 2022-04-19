@@ -24,7 +24,7 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
         yield const CharacterLoading();
         final mList = await _apiRepository.getCharacters();
         yield CharacterLoaded(mList);
-        if (mList.error != null) yield CharacterError(mList.error);
+        if (mList.error.isNotEmpty) yield CharacterError(mList.error);
       } on NetworkError {
         yield const CharacterError(
             "Failed to fetch data. is your device online?");
