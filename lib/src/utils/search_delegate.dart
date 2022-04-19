@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:rickandmortyapp/src/models/characters_model.dart';
 
 class MySearchDelegate extends SearchDelegate {
+  final CharactersModel charactersModel;
   List<String> searchReasults = [
     'Rick',
     'Morty',
@@ -8,6 +10,8 @@ class MySearchDelegate extends SearchDelegate {
     'Macho men',
     'las chicas super poderosas'
   ];
+
+  MySearchDelegate(this.charactersModel);
   @override
   List<Widget>? buildActions(BuildContext context) => [
         IconButton(

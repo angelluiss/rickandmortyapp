@@ -8,10 +8,10 @@ import 'package:rickandmortyapp/src/respository/api_repository.dart';
 part 'character_event.dart';
 part 'character_state.dart';
 
-class CovidBloc extends Bloc<CharacterEvent, CharacterState> {
+class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
   final ApiRepository _apiRepository = ApiRepository();
 
-  CovidBloc(CharacterState initialState) : super(initialState);
+  CharacterBloc(CharacterState initialState) : super(initialState);
 
   CharacterState get initialState => const CharacterInitial();
 

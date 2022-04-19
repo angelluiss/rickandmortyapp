@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rickandmortyapp/src/ui/widgets/characters_list_widget.dart';
 import 'package:rickandmortyapp/src/utils/search_delegate.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: Column(),
+      body: CharactersList(),
     );
   }
 }
